@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+.wrangler/
+.dev.vars
+wrangler.jsonc
+worker-configuration.d.ts
+*.log
+.DS_Store

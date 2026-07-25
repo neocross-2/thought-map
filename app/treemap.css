@@ -1,0 +1,846 @@
+:root {
+  --tm-ink: #0b1220;
+  --tm-muted: #334155;
+  --tm-teal: #115e59;
+  --tm-mint: #047857;
+  --tm-sky: #0369a1;
+  --tm-line: #7c8ca0;
+  --tm-surface: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.treemap-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.treemap-shell,
+.treemap-login-shell {
+  min-height: 100vh;
+  color: var(--tm-ink);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(56, 189, 248, 0.14), transparent 24rem),
+    radial-gradient(circle at 92% 12%, rgba(52, 211, 153, 0.16), transparent 26rem),
+    #f7fafc;
+}
+
+.treemap-header {
+  height: 56px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 2px solid var(--tm-line);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(18px);
+}
+
+.treemap-brand {
+  color: var(--tm-ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.treemap-brand span {
+  font-size: 21px;
+}
+
+.treemap-brand small {
+  color: var(--tm-teal);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.treemap-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.treemap-header-actions a,
+.treemap-header-actions button {
+  border: 2px solid var(--tm-line);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: var(--tm-teal);
+  background: var(--tm-surface);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.treemap-edit-link {
+  color: white !important;
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--tm-teal), #075985) !important;
+}
+
+.treemap-save-state {
+  white-space: nowrap;
+  color: var(--tm-muted);
+}
+
+.treemap-save-state.is-saved {
+  color: var(--tm-teal);
+}
+
+.treemap-save-state.is-error,
+.treemap-save-state.is-conflict {
+  color: #b91c1c;
+}
+
+.treemap-toolbar {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-bottom: 2px solid var(--tm-line);
+  background: rgba(255, 255, 255, 0.97);
+  overflow-x: auto;
+}
+
+.treemap-toolbar span {
+  flex: 1;
+}
+
+.treemap-toolbar button {
+  flex: 0 0 auto;
+  border: 2px solid var(--tm-line);
+  border-radius: 11px;
+  padding: 9px 13px;
+  color: var(--tm-ink);
+  background: var(--tm-surface);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.treemap-toolbar button:hover:not(:disabled) {
+  color: var(--tm-teal);
+  border-color: var(--tm-mint);
+}
+
+.treemap-toolbar button:disabled {
+  color: #64748b;
+  background: #e2e8f0;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.treemap-workspace {
+  height: calc(100vh - 56px);
+  display: flex;
+  min-height: 560px;
+}
+
+.treemap-toolbar + .treemap-workspace {
+  height: calc(100vh - 114px);
+}
+
+.treemap-canvas {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+}
+
+.treemap-inspector {
+  width: 320px;
+  padding: 24px;
+  border-left: 2px solid var(--tm-line);
+  background: rgba(255, 255, 255, 0.98);
+  overflow-y: auto;
+}
+
+.treemap-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--tm-teal);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.treemap-inspector label,
+.treemap-login-card label {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 18px;
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-inspector input,
+.treemap-inspector textarea,
+.treemap-login-card input {
+  width: 100%;
+  border: 2px solid var(--tm-line);
+  border-radius: 11px;
+  padding: 11px 12px;
+  color: var(--tm-ink);
+  background: #fff;
+  font: inherit;
+  font-weight: 600;
+  outline: none;
+}
+
+.treemap-inspector textarea {
+  resize: vertical;
+}
+
+.treemap-inspector input:focus,
+.treemap-inspector textarea:focus,
+.treemap-login-card input:focus {
+  border-color: var(--tm-sky);
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.22);
+}
+
+.treemap-image-field {
+  display: grid;
+  gap: 8px;
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-image-field img {
+  width: 100%;
+  max-height: 190px;
+  object-fit: cover;
+  border-radius: 13px;
+}
+
+.treemap-image-field button,
+.treemap-upload {
+  border: 2px dashed var(--tm-teal);
+  border-radius: 12px;
+  padding: 11px;
+  color: var(--tm-teal);
+  background: #f0fdfa;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.treemap-upload input {
+  display: none;
+}
+
+.treemap-help {
+  margin-top: 20px;
+  color: var(--tm-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.treemap-node {
+  position: relative;
+  width: 270px;
+  overflow: hidden;
+  border: 3px solid var(--tm-line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow:
+    0 16px 40px rgba(15, 118, 110, 0.12),
+    0 2px 8px rgba(15, 23, 42, 0.08);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.treemap-node:hover,
+.treemap-node.is-selected {
+  border-color: var(--tm-mint);
+  box-shadow:
+    0 18px 46px rgba(15, 118, 110, 0.2),
+    0 0 0 4px rgba(52, 211, 153, 0.12);
+}
+
+.treemap-node-image {
+  display: block;
+  width: 100%;
+  height: 125px;
+  padding: 0;
+  border: 0;
+  background: #eafaf7;
+  cursor: zoom-in;
+}
+
+.treemap-node-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.treemap-node-body {
+  padding: 16px 17px;
+}
+
+.treemap-node h2 {
+  margin: 0;
+  color: var(--tm-ink);
+  font-size: 17px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.treemap-node p {
+  margin: 8px 0 0;
+  color: var(--tm-muted);
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.treemap-node-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.treemap-node-actions a,
+.treemap-node-actions button {
+  border: 0;
+  padding: 0;
+  color: var(--tm-teal);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.treemap-node-id {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  color: var(--tm-teal);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.treemap-handle {
+  width: 14px !important;
+  height: 14px !important;
+  border: 2px solid var(--tm-surface) !important;
+  background: var(--tm-teal) !important;
+}
+
+.treemap-status {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 20px;
+  color: var(--tm-muted);
+  font-weight: 800;
+}
+
+.treemap-status.is-error {
+  color: #b91c1c;
+}
+
+.treemap-status button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: white;
+  background: var(--tm-teal);
+  font-weight: 800;
+}
+
+.treemap-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(2, 10, 23, 0.72);
+}
+
+.treemap-outline-dialog {
+  width: min(960px, 100%);
+  max-height: min(820px, calc(100vh - 48px));
+  overflow-y: auto;
+  padding: 28px;
+  border: 3px solid var(--tm-line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 32px 100px rgba(2, 10, 23, 0.34);
+}
+
+.treemap-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.treemap-dialog-heading .treemap-eyebrow {
+  margin-bottom: 7px;
+}
+
+.treemap-dialog-heading h2 {
+  margin: 0;
+  font-size: 27px;
+  line-height: 1.3;
+}
+
+.treemap-dialog-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border: 2px solid var(--tm-line);
+  border-radius: 50%;
+  color: var(--tm-ink);
+  background: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.treemap-outline-method {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 5px;
+  border: 2px solid var(--tm-line);
+  border-radius: 13px;
+  background: #f1f5f9;
+}
+
+.treemap-outline-method button {
+  border: 0;
+  border-radius: 9px;
+  padding: 9px 13px;
+  color: var(--tm-muted);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.treemap-outline-method button.is-active {
+  color: #fff;
+  background: var(--tm-teal);
+}
+
+.treemap-outline-help {
+  margin: 14px 0 20px;
+  color: var(--tm-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.treemap-outline-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.treemap-outline-input {
+  display: grid;
+  gap: 8px;
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-outline-input > label {
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-outline-input textarea {
+  width: 100%;
+  min-height: 330px;
+  resize: vertical;
+  border: 2px solid var(--tm-line);
+  border-radius: 15px;
+  padding: 15px;
+  color: var(--tm-ink);
+  background: #f8fafc;
+  font: 700 14px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace;
+  outline: none;
+}
+
+.treemap-outline-input textarea:focus {
+  border-color: var(--tm-sky);
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.22);
+}
+
+.treemap-ai-organize {
+  border: 2px solid var(--tm-teal);
+  border-radius: 12px;
+  padding: 11px 16px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--tm-teal), #075985);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.treemap-ai-organize:disabled {
+  border-color: #94a3b8;
+  color: #475569;
+  background: #e2e8f0;
+  cursor: wait;
+}
+
+.treemap-outline-preview {
+  min-height: 354px;
+  overflow: auto;
+  border: 2px solid var(--tm-line);
+  border-radius: 15px;
+  padding: 15px;
+  background: #f8fafc;
+}
+
+.treemap-outline-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #cbd5e1;
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-outline-preview-heading small {
+  color: var(--tm-teal);
+}
+
+.treemap-outline-tree,
+.treemap-outline-tree ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.treemap-outline-tree {
+  padding-top: 13px;
+}
+
+.treemap-outline-tree li {
+  margin: 7px 0;
+  color: var(--tm-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.treemap-outline-tree li::marker {
+  color: var(--tm-teal);
+}
+
+.treemap-outline-tree > li > span {
+  color: var(--tm-ink);
+  font-weight: 900;
+}
+
+.treemap-outline-empty {
+  margin: 18px 0;
+  color: var(--tm-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.treemap-import-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 20px 0 0;
+  border: 0;
+  padding: 0;
+}
+
+.treemap-import-mode legend {
+  width: 100%;
+  margin-bottom: 8px;
+  color: var(--tm-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.treemap-import-mode label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tm-muted);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.treemap-import-mode input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--tm-teal);
+}
+
+.treemap-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.treemap-dialog-actions button {
+  border: 2px solid var(--tm-line);
+  border-radius: 12px;
+  padding: 11px 18px;
+  color: var(--tm-ink);
+  background: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.treemap-dialog-actions button.is-primary {
+  border-color: var(--tm-teal);
+  color: #fff;
+  background: var(--tm-teal);
+}
+
+.treemap-dialog-actions button:disabled {
+  border-color: #94a3b8;
+  color: #475569;
+  background: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.treemap-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  border: 0;
+  background: rgba(2, 10, 23, 0.84);
+  cursor: zoom-out;
+}
+
+.treemap-lightbox img {
+  max-width: min(1200px, 94vw);
+  max-height: 88vh;
+  border-radius: 16px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+}
+
+.treemap-lightbox span {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  color: white;
+  font-size: 40px;
+}
+
+.treemap-login-shell {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 80px;
+  padding: 30px 20px;
+}
+
+.treemap-login-shell > .treemap-brand {
+  justify-self: start;
+  width: min(100%, 1100px);
+  margin: 0 auto;
+}
+
+.treemap-login-card {
+  width: min(100%, 460px);
+  padding: 36px;
+  border: 2px solid var(--tm-line);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 24px 70px rgba(15, 118, 110, 0.14);
+}
+
+.treemap-login-card h1 {
+  margin: 0 0 12px;
+  font-size: 30px;
+}
+
+.treemap-login-card > p {
+  margin: 0 0 24px;
+  color: var(--tm-muted);
+  line-height: 1.7;
+}
+
+.treemap-login-card > button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: white;
+  background: linear-gradient(135deg, var(--tm-teal), #075985);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.treemap-error {
+  color: #b91c1c !important;
+  font-size: 13px;
+}
+
+.treemap-mobile-warning {
+  padding: 9px 18px;
+  color: #92400e;
+  background: #fffbeb;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.react-flow__controls {
+  overflow: hidden;
+  border: 2px solid var(--tm-line);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.12);
+}
+
+.react-flow__controls-button {
+  color: var(--tm-ink);
+  background: var(--tm-surface);
+  border-bottom-color: var(--tm-line);
+}
+
+.react-flow__controls-button svg {
+  fill: currentColor;
+}
+
+.react-flow__minimap {
+  overflow: hidden;
+  border: 2px solid var(--tm-line);
+  border-radius: 12px;
+}
+
+.treemap-header-actions a:focus-visible,
+.treemap-header-actions button:focus-visible,
+.treemap-toolbar button:focus-visible,
+.treemap-node-actions a:focus-visible,
+.treemap-node-actions button:focus-visible,
+.treemap-image-field button:focus-visible,
+.treemap-upload:focus-within,
+.treemap-login-card > button:focus-visible,
+.treemap-dialog-close:focus-visible,
+.treemap-outline-method button:focus-visible,
+.treemap-ai-organize:focus-visible,
+.treemap-dialog-actions button:focus-visible,
+.react-flow__controls-button:focus-visible {
+  outline: 3px solid var(--tm-sky);
+  outline-offset: 3px;
+}
+
+@media (max-width: 799px) {
+  .treemap-header {
+    height: 50px;
+    padding: 0 12px;
+  }
+
+  .treemap-brand span {
+    font-size: 18px;
+  }
+
+  .treemap-brand small {
+    font-size: 8px;
+  }
+
+  .treemap-save-state {
+    display: none;
+  }
+
+  .treemap-workspace,
+  .treemap-toolbar + .treemap-workspace {
+    height: calc(100vh - 50px);
+    min-height: 540px;
+  }
+
+  .treemap-toolbar + .treemap-workspace {
+    height: calc(100vh - 108px);
+  }
+
+  .treemap-inspector {
+    position: fixed;
+    z-index: 30;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    width: auto;
+    max-height: 46vh;
+    border: 2px solid var(--tm-line);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.24);
+  }
+
+  .treemap-toolbar {
+    padding-inline: 10px;
+  }
+
+  .treemap-node {
+    width: 245px;
+  }
+
+  .treemap-node-image {
+    height: 112px;
+  }
+
+  .react-flow__minimap {
+    display: none;
+  }
+
+  .treemap-dialog-backdrop {
+    padding: 10px;
+  }
+
+  .treemap-outline-dialog {
+    max-height: calc(100vh - 20px);
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .treemap-outline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .treemap-outline-input textarea {
+    min-height: 230px;
+  }
+
+  .treemap-outline-preview {
+    min-height: 220px;
+    max-height: 270px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .treemap-node {
+    transition: none;
+  }
+}

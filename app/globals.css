@@ -1,0 +1,21 @@
+@import "./treemap.css";
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body,
+button,
+input,
+textarea {
+  font-family:
+    "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
