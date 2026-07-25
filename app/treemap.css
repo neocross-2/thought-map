@@ -345,6 +345,31 @@
   background: var(--tm-teal) !important;
 }
 
+.treemap-branch-handle {
+  width: 18px !important;
+  height: 18px !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 0 2px var(--tm-teal);
+  transition:
+    transform 140ms ease,
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.treemap-branch-handle:hover {
+  transform: translate(50%, -50%) scale(1.14);
+}
+
+.treemap-branch-handle:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 4px;
+}
+
+.treemap-branch-handle.is-collapsed {
+  background: #f59e0b !important;
+  box-shadow: 0 0 0 2px #92400e;
+}
+
 .treemap-status {
   position: absolute;
   inset: 50% auto auto 50%;

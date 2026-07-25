@@ -254,8 +254,8 @@ function TreemapCard({
       <div className="treemap-node-body">
         <h2>{String(data.title)}</h2>
         {data.note && <p>{String(data.note)}</p>}
-        <div className="treemap-node-actions">
-          {data.href && (
+        {data.href && (
+          <div className="treemap-node-actions">
             <a
               href={String(data.href)}
               target="_blank"
@@ -264,26 +264,36 @@ function TreemapCard({
             >
               開く ↗
             </a>
-          )}
-          {childCount > 0 && (
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                onToggle?.();
-              }}
-            >
-              {data.collapsed ? `＋ ${childCount}` : "枝を閉じる"}
-            </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-      {(editable || childCount > 0) && (
+      {childCount > 0 && (
         <Handle
           type="source"
           position={Position.Right}
-          className="treemap-handle"
+          className={`treemap-handle treemap-branch-handle ${
+            data.collapsed ? "is-collapsed" : ""
+          }`}
           isConnectable={editable}
+          role="button"
+          tabIndex={0}
+          aria-label={
+            data.collapsed
+              ? `${childCount}件の枝を開く`
+              : `${childCount}件の枝を閉じる`
+          }
+          aria-expanded={!data.collapsed}
+          title={data.collapsed ? "枝を開く" : "枝を閉じる"}
+          onClick={(event) => {
+            event.stopPropagation();
+            onToggle?.();
+          }}
+          onKeyDown={(event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            event.stopPropagation();
+            onToggle?.();
+          }}
         />
       )}
       <span className="treemap-node-id" aria-hidden="true">
@@ -1160,7 +1170,8 @@ export function TreemapApp({ mode }: { mode: Mode }) {
               )}
             </div>
             <p className="treemap-help">
-              ノード右の点から別ノードへつなぐと、親子関係を変更できます。
+              子があるノードは、右の点をクリックすると枝を開閉できます。
+              編集中は右の点から別ノードへドラッグして、親子関係も変更できます。
             </p>
           </aside>
         )}
