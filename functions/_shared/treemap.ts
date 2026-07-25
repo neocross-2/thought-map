@@ -90,7 +90,7 @@ export async function verifyPassword(env: Env, password: string) {
   if (
     scheme !== "pbkdf2-sha256" ||
     !Number.isInteger(iterations) ||
-    iterations < 100_000 ||
+    iterations !== 100_000 ||
     !saltText ||
     !expectedText
   ) {
